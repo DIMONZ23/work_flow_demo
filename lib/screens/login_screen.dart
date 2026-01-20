@@ -60,40 +60,55 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             const LoginHeader(),
             Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 40),
-                    LoginTextField(
-                      label: 'ID または メールアドレス',
-                      controller: _idController,
-                      hintText: '',
-                      onChanged: (_) => _resetError(),
-                    ),
-                    const SizedBox(height: 24),
-                    LoginTextField(
-                      label: 'パスワード',
-                      controller: _passwordController,
-                      obscureText: true,
-                      hintText: '',
-                      onChanged: (_) => _resetError(),
-                    ),
-                    const SizedBox(height: 32),
-                    Align(
-                        alignment: Alignment.center,
-                        child: WFButtonLoading(
-                          onPressed: _handleLogin,
-                          isLoading: _isLoading,
-                          width: SizeState.xxxxxxxxxxxxxxlarge.value,
-                          text: 'ログオン',
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  return SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                        minHeight: constraints.maxHeight,
+                      ),
+                      child: Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min, // 👈 quan trọng
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(height: 40),
+
+                            LoginTextField(
+                              label: 'ID または メールアドレス',
+                              controller: _idController,
+                              hintText: '',
+                              onChanged: (_) => _resetError(),
+                            ),
+
+                            const SizedBox(height: 24),
+
+                            LoginTextField(
+                              label: 'パスワード',
+                              controller: _passwordController,
+                              obscureText: true,
+                              hintText: '',
+                              onChanged: (_) => _resetError(),
+                            ),
+
+                            const SizedBox(height: 32),
+
+                            WFButtonLoading(
+                              onPressed: _handleLogin,
+                              isLoading: _isLoading,
+                              width: SizeState.xxxxxxxxxxxxxxlarge.value,
+                              text: 'ログオン',
+                            ),
+                          ],
                         ),
                       ),
-                  ],
-                ),
+                    ),
+                  );
+                },
               ),
             ),
+
             if (_loginState == LoginState.failed)
               const WfErrorBanner(
                 message: 'ID (メールアドレス) またはパスワードが一致しません。',

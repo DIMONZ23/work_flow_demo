@@ -46,10 +46,10 @@ class _WfRegisterScreenState extends State<WfRegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      type: MaterialType.transparency, // 👈 cho phép nền mờ từ dialog
+      type: MaterialType.transparency, 
       child: Stack(
         children: [
-          // 👉 Tap vào background để đóng dialog
+          
           Positioned.fill(
             child: GestureDetector(
               behavior: HitTestBehavior.opaque,
@@ -57,15 +57,11 @@ class _WfRegisterScreenState extends State<WfRegisterScreen> {
             ),
           ),
 
-          // 👉 Nội dung dialog
+          
           Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                WfPreviewToggles(
-                  state: _state,
-                  onSelect: _setState,
-                ),
                 const SizedBox(height: 16),
                 WfUrlDialogCard(
                   statusLabel: _statusLabel,
